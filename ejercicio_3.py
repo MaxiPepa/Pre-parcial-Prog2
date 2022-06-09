@@ -8,26 +8,30 @@ class Alumno():
 
     def generar_legajo(self) -> str:
         strDni = str(self.dni)
-        legajo = "ALU_" + strDni[-3:]
+        legajo = "ALU_" + strDni[:3]
         return legajo
     
     def completar_materias(self):
         cantidad = int(input("Escriba el número de materias a ingresar: "))
         while cantidad <= 0:
-            cantidad = int(input("Error, ingrese nuevamente:"))
+            cantidad = int(input("Error, debe haber al menos una materia:"))
         
         for x in range(cantidad):
             materia = input("Ingrese el nombre de la materia " + str(x + 1) + " : ")
             self.materias.append(materia)
     
     def registrar_notas(self):
+        aprobadas = []
         for materia in self.materias:
             nota =  int(input("Ingrese la nota de " + materia + " : "))
             while nota < 0 or nota > 10:
                 nota =  int(input("Error, ingrese nuevamente, la nota debe ser un número entre 1 y 10: "))
             
             if nota >= 6:
-                self.materias.remove(materia)
+                aprobadas.append(materia)
+
+        for materia in aprobadas:
+            self.materias.remove(materia)
         
         print("Asignaturas pendientes: " + str(self.materias))
 
